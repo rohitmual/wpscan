@@ -54,18 +54,13 @@ def main
     # also no need to check if the user supplied the --update switch
     if update_required? && !wpscan_options.batch && !wpscan_options.update
       puts notice('It seems like you have not updated the database for some time.')
-      print '[?] Do you want to update now? [Y]es [N]o [A]bort, default: [N]'
-      if (input = Readline.readline) =~ /^y/i
+      print '[!] We are running update for you.'
         wpscan_options.update = true
-      elsif input =~ /^a/i
-        puts 'Scan aborted'
-        exit(1)
       else
         if missing_db_file?
           puts critical('You can not run a scan without any databases. Extract the data.zip file.')
           exit(1)
         end
-      end
     end
 
     if wpscan_options.update
